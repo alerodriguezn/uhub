@@ -8,6 +8,27 @@
       "when": 1705199676654,
       "tag": "0000_shiny_norman_osborn",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1705335437528,
+      "tag": "0001_bent_firelord",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1705335589483,
+      "tag": "0002_tidy_secret_warriors",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1705335863480,
+      "tag": "0003_tough_triathlon",
+      "breakpoints": true
     }
   ]
 }

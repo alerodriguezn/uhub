@@ -1,10 +1,17 @@
 import {
   timestamp,
   pgTable,
+  pgEnum,
   text,
   primaryKey,
   integer,
+  decimal,
+  serial,
+  date,
+  boolean,
+  uuid,
 } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 import type { AdapterAccount } from "@auth/core/adapters";
 
 export const users = pgTable("user", {
@@ -14,6 +21,10 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
 });
+
+export const usersRelations = relations(users, ({ many }) => ({
+  courses: many(courses),
+}));
 
 export const accounts = pgTable(
   "account",
@@ -59,4 +70,41 @@ export const verificationTokens = pgTable(
   })
 );
 
+export const courses = pgTable("course", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  professor: text("professor"),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id),
+});
 
+export const coursesRelations = relations(courses, ({ one, many }) => ({
+  userId: one(users, {
+    fields: [courses.userId],
+    references: [users.id],
+  }),
+  assignments: many(assignments),
+}));
+
+export const typeEnum = pgEnum("type", ["task", "exam", "project", "quiz"]);
+
+export const assignments = pgTable("assignment", {
+  id: uuid('id').primaryKey().defaultRandom(),
+  date : date("date"),
+  title: text("title").notNull(),
+  isCompleted: boolean('isCompleted').default(false),
+  description: text("description").notNull(),
+  weighting: decimal("weighting"),
+  type: typeEnum("type"),
+  courseId: uuid("courseId")
+    .notNull()
+    .references(() => courses.id, { onDelete: 'cascade' }),
+});
+
+export const assignmentsRelations = relations(assignments, ({ one }) => ({
+  courseId: one(courses, {
+    fields: [assignments.courseId],
+    references: [courses.id],
+  }),
+}));
