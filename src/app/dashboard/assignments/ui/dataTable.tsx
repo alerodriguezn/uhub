@@ -1,11 +1,11 @@
-"use client"
- 
-import * as React from "react"
+"use client";
+
+import * as React from "react";
 import {
   CaretSortIcon,
   ChevronDownIcon,
   DotsHorizontalIcon,
-} from "@radix-ui/react-icons"
+} from "@radix-ui/react-icons";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -17,10 +17,11 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
- 
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+} from "@tanstack/react-table";
+
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -29,8 +30,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -38,49 +39,127 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
- 
-const data: Payment[] = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
+} from "@/components/ui/table";
+import { Assignment } from "@/interfaces";
+import { FilePlus } from "lucide-react";
+import Link from "next/link";
+import { assignments } from '@/db/schema';
+
+// const data: Assignment[] = [
+//   {
+//     id: "1",
+//     date: '2024-01-01',
+//     title: "Task 1",
+//     isCompleted: false,
+//     description: "Description 1",
+//     weighting: 5,
+//     type: "task",
+//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
+//   },
+//   {
+//     id: "2",
+//     date: '2024-01-01',
+//     title: "Task 2",
+//     isCompleted: false,
+//     description: "Description 2",
+//     weighting: 9,
+//     type: "quiz",
+//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
+//   },
+//   {
+//     id: "3",
+//     date: '2024-01-01',
+//     title: "Task 3",
+//     isCompleted: false,
+//     description: "Description 3",
+//     weighting: 7,
+//     type: "exam",
+//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
+//   },
+//   {
+//     id: "4",
+//     date: '2024-01-01',
+//     title: "Task 4",
+//     isCompleted: false,
+//     description: "Description 4",
+//     weighting: 0.2,
+//     type: "project",
+//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
+//   },
+//   {
+//     id: "5",
+//     date: '2024-01-01',
+//     title: "Task 5",
+//     isCompleted: false,
+//     description: "Description 5",
+//     weighting: 0.2,
+//     type: "exam",
+//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
+//   },
+//   {
+//     id: "6",
+//     date: '2024-01-01',
+//     title: "Task 6",
+//     isCompleted: false,
+//     description: "Description 6	",
+//     weighting: 0.2,
+//     type: "task",
+//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
+//   },
+//   {
+//     id: "7",
+//     date: '2024-01-01',
+//     title: "Task 7",
+//     isCompleted: false,
+//     description: "Description 7",
+//     weighting: 0.2,
+//     type: "project",
+//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
+//   },
+//   {
+//     id: "8",
+//     date: '2024-01-01',
+//     title: "Task 8",
+//     isCompleted: false,
+//     description: "Description 8",
+//     weighting: 0.2,
+//     type: "task",
+//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
+//   },
+//   {
+//     id: "9",
+//     date: '2024-01-01',
+//     title: "Task 9",
+//     isCompleted: false,
+//     description: "Description 9",
+//     weighting: 0.2,
+//     type: "task",
+//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
+//   },
+// ];
+
+const allTypes: { [key: string]: { name: string; color: string } } = {
+  task: {
+    name: "Tarea",
+    color: "bg-blue-500",
   },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
+  exam: {
+    name: "Examen",
+    color: "bg-green-500",
   },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
+  quiz: {
+    name: "Quiz",
+    color: "bg-amber-500",
   },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
+  project: {
+    name: "Proyecto",
+    color: "bg-red-500",
   },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
-  },
-]
- 
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
-}
- 
-export const columns: ColumnDef<Payment>[] = [
+};
+
+console.log(allTypes["task"]);
+
+export const columns: ColumnDef<Assignment>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -104,47 +183,75 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "isCompleted",
+    header: "Estado",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
+      <div className="capitalize">
+        {row.getValue("isCompleted") ? "Completada" : "Pendiente"}
+      </div>
     ),
   },
   {
-    accessorKey: "email",
+    accessorKey: "title",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
+          className="text-left pl-2"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Título
           <CaretSortIcon className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) => {
+      return <div className="lowercase">{row.getValue("title")}</div>;
+    },
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "date",
+    header: () => <div>Fecha</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
- 
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
- 
-      return <div className="text-right font-medium">{formatted}</div>
+      const date = row.getValue("date") as Date;
+
+      const formattedDate = new Intl.DateTimeFormat("es-ES", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }).format(date);
+
+      return <div className="font-medium">{formattedDate}</div>;
     },
+  },
+  {
+    accessorKey: "weighting",
+    header: "Peso",
+    cell: ({ row }) => <div>{row.getValue("weighting")}%</div>,
+  },
+  
+  {
+    accessorKey: "type",
+    header: "Tipo",
+    cell: ({ row }) => {
+      const type = row.getValue("type");
+
+      const formattedType = allTypes[type as string];
+
+      return <Badge className={`${formattedType.color} text-center text-gray-200`}>{formattedType.name}</Badge>;
+    },
+  },
+  {
+    accessorKey: "description",
+    header: "Descripcion",
+    cell: ({ row }) => <div>{row.getValue("description")}</div>,
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
- 
+      const payment = row.original;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -165,20 +272,24 @@ export const columns: ColumnDef<Payment>[] = [
             <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
- 
-export function DataTable() {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+];
+
+interface Props {
+  data: Assignment[];
+}
+
+export function DataTable({data}: Props) {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
+  );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
- 
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
+
   const table = useReactTable({
     data,
     columns,
@@ -196,19 +307,20 @@ export function DataTable() {
       columnVisibility,
       rowSelection,
     },
-  })
- 
+  });
+
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 h-full">
         <Input
           placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("date")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("date")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -231,7 +343,7 @@ export function DataTable() {
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
-                )
+                );
               })}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -251,7 +363,7 @@ export function DataTable() {
                             header.getContext()
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -311,5 +423,5 @@ export function DataTable() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -5,8 +5,7 @@ import {
   text,
   primaryKey,
   integer,
-  decimal,
-  serial,
+  real,
   date,
   boolean,
   uuid,
@@ -24,6 +23,7 @@ export const users = pgTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   courses: many(courses),
+  assignments: many(assignments),
 }));
 
 export const accounts = pgTable(
@@ -80,7 +80,7 @@ export const courses = pgTable("course", {
 });
 
 export const coursesRelations = relations(courses, ({ one, many }) => ({
-  userId: one(users, {
+  user: one(users, {
     fields: [courses.userId],
     references: [users.id],
   }),
@@ -90,21 +90,28 @@ export const coursesRelations = relations(courses, ({ one, many }) => ({
 export const typeEnum = pgEnum("type", ["task", "exam", "project", "quiz"]);
 
 export const assignments = pgTable("assignment", {
-  id: uuid('id').primaryKey().defaultRandom(),
-  date : date("date"),
+  id: uuid("id").primaryKey().defaultRandom(),
+  date: date("date").notNull(),
   title: text("title").notNull(),
-  isCompleted: boolean('isCompleted').default(false),
+  isCompleted: boolean("isCompleted").default(false).notNull(),
   description: text("description").notNull(),
-  weighting: decimal("weighting"),
-  type: typeEnum("type"),
+  weighting: real("weighting"),
+  type: typeEnum("type").notNull(),
   courseId: uuid("courseId")
     .notNull()
-    .references(() => courses.id, { onDelete: 'cascade' }),
+    .references(() => courses.id, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id),
 });
 
 export const assignmentsRelations = relations(assignments, ({ one }) => ({
-  courseId: one(courses, {
+  course: one(courses, {
     fields: [assignments.courseId],
     references: [courses.id],
+  }),
+  user: one(users, {
+    fields: [assignments.userId],
+    references: [users.id],
   }),
 }));

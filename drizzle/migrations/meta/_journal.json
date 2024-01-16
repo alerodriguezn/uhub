@@ -29,6 +29,34 @@
       "when": 1705335863480,
       "tag": "0003_tough_triathlon",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1705380129853,
+      "tag": "0004_red_switch",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1705383975935,
+      "tag": "0005_motionless_liz_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1705384833347,
+      "tag": "0006_jazzy_killmonger",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1705385118908,
+      "tag": "0007_condemned_fallen_one",
+      "breakpoints": true
     }
   ]
 }

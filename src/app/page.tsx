@@ -1,16 +1,13 @@
 
-import { getServerSession } from 'next-auth'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button';
-import { redirect } from 'next/navigation'
-import { authConfig } from './api/auth/[...nextauth]/route';
+import { auth } from '@/lib/auth';
 
 export default async function Home() {
 
-  const session = await getServerSession(authConfig);
+  const session = await auth()
 
+  console.log(session?.user) 
 
-  
 
   return (
     <main className="flex min-h-screen flex-col ">
