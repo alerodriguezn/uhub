@@ -40,103 +40,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Assignment } from "@/interfaces";
-import { FilePlus } from "lucide-react";
-import Link from "next/link";
-import { assignments } from '@/db/schema';
-
-// const data: Assignment[] = [
-//   {
-//     id: "1",
-//     date: '2024-01-01',
-//     title: "Task 1",
-//     isCompleted: false,
-//     description: "Description 1",
-//     weighting: 5,
-//     type: "task",
-//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
-//   },
-//   {
-//     id: "2",
-//     date: '2024-01-01',
-//     title: "Task 2",
-//     isCompleted: false,
-//     description: "Description 2",
-//     weighting: 9,
-//     type: "quiz",
-//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
-//   },
-//   {
-//     id: "3",
-//     date: '2024-01-01',
-//     title: "Task 3",
-//     isCompleted: false,
-//     description: "Description 3",
-//     weighting: 7,
-//     type: "exam",
-//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
-//   },
-//   {
-//     id: "4",
-//     date: '2024-01-01',
-//     title: "Task 4",
-//     isCompleted: false,
-//     description: "Description 4",
-//     weighting: 0.2,
-//     type: "project",
-//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
-//   },
-//   {
-//     id: "5",
-//     date: '2024-01-01',
-//     title: "Task 5",
-//     isCompleted: false,
-//     description: "Description 5",
-//     weighting: 0.2,
-//     type: "exam",
-//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
-//   },
-//   {
-//     id: "6",
-//     date: '2024-01-01',
-//     title: "Task 6",
-//     isCompleted: false,
-//     description: "Description 6	",
-//     weighting: 0.2,
-//     type: "task",
-//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
-//   },
-//   {
-//     id: "7",
-//     date: '2024-01-01',
-//     title: "Task 7",
-//     isCompleted: false,
-//     description: "Description 7",
-//     weighting: 0.2,
-//     type: "project",
-//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
-//   },
-//   {
-//     id: "8",
-//     date: '2024-01-01',
-//     title: "Task 8",
-//     isCompleted: false,
-//     description: "Description 8",
-//     weighting: 0.2,
-//     type: "task",
-//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
-//   },
-//   {
-//     id: "9",
-//     date: '2024-01-01',
-//     title: "Task 9",
-//     isCompleted: false,
-//     description: "Description 9",
-//     weighting: 0.2,
-//     type: "task",
-//     courseId: "61061779-cfa6-4d93-9571-dbc2b3cba661",
-//   },
-// ];
+import { AssignmentWithCourseName } from "@/interfaces";
 
 const allTypes: { [key: string]: { name: string; color: string } } = {
   task: {
@@ -159,7 +63,7 @@ const allTypes: { [key: string]: { name: string; color: string } } = {
 
 console.log(allTypes["task"]);
 
-export const columns: ColumnDef<Assignment>[] = [
+export const columns: ColumnDef<AssignmentWithCourseName>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -206,7 +110,7 @@ export const columns: ColumnDef<Assignment>[] = [
       );
     },
     cell: ({ row }) => {
-      return <div className="lowercase">{row.getValue("title")}</div>;
+      return <div className="font-bold">{row.getValue("title")}</div>;
     },
   },
   {
@@ -228,6 +132,16 @@ export const columns: ColumnDef<Assignment>[] = [
     accessorKey: "weighting",
     header: "Peso",
     cell: ({ row }) => <div>{row.getValue("weighting")}%</div>,
+  },
+  {
+    accessorKey: "course",
+    header: "Curso",
+    cell: ({ row }) => {
+      const course: { id: string, name: string } = row.getValue("course");
+
+      
+    return <div>{course.name}</div>
+  },
   },
   
   {
@@ -278,7 +192,7 @@ export const columns: ColumnDef<Assignment>[] = [
 ];
 
 interface Props {
-  data: Assignment[];
+  data: AssignmentWithCourseName[];
 }
 
 export function DataTable({data}: Props) {
@@ -313,10 +227,10 @@ export function DataTable({data}: Props) {
     <div className="w-full">
       <div className="flex items-center py-4 h-full">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("date")?.getFilterValue() as string) ?? ""}
+          placeholder="Filtrar por nombre..."
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("date")?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
