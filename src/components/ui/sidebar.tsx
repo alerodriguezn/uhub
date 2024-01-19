@@ -14,22 +14,22 @@ export const Sidebar = () => {
         <span className="mt-2 font-bold antialiased">Alejandro Rodríguez</span>
       </div>
       <Separator />
-      <nav className="w-full mt-4 flex ml-8">
-        <ul className="flex flex-col justify-center gap-4">
+      <nav className="w-full mt-8 flex ml-8">
+        <ul className="flex flex-col justify-center gap-6">
           <li className="flex gap-2">
             <Link href={"/"} className="font-semibold flex items-center gap-2">
               <Home size={18} />
-              <span>Incio</span>
+              <span>Inicio</span>
             </Link>
           </li>
           <li className="flex gap-2">
-            <Link href={"/"} className="font-semibold flex items-center gap-2">
+            <Link href={"/dashboard/assignments"} className="font-semibold flex items-center gap-2">
               <CheckSquare size={18} />
-              <span>Tareas</span>
+              <span>Asignaciones</span>
             </Link>
           </li>
           <li className="flex gap-2">
-            <Link href={"/"} className="font-semibold flex items-center gap-2">
+            <Link href={"/dashboard/courses"} className="font-semibold flex items-center gap-2">
               <Library />
               <span>Cursos</span>
             </Link>
