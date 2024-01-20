@@ -1,7 +1,7 @@
 import { getAssignmentsByUser } from "@/app/actions";
-import { DataTable } from "@/app/dashboard/assignments/ui/dataTable";
+import { DataTable } from "@/app/dashboard/assignments/ui/DataTable";
 import { redirect } from "next/navigation";
-import { AddAssignmentDialog } from "./ui/addAssignmentDialog";
+import { AddAssignmentDialog } from "./ui/AddAssignmentDialog";
 
 export default async function AssignmentsPage() {
   const { ok, assignmentsByUser } = await getAssignmentsByUser();

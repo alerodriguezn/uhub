@@ -17,7 +17,7 @@ export const Sidebar = () => {
       <nav className="w-full mt-8 flex ml-8">
         <ul className="flex flex-col justify-center gap-6">
           <li className="flex gap-2">
-            <Link href={"/"} className="font-semibold flex items-center gap-2">
+            <Link href={"/dashboard/"} className="font-semibold flex items-center gap-2">
               <Home size={18} />
               <span>Inicio</span>
             </Link>

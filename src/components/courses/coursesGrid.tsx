@@ -1,4 +1,4 @@
-import { CourseItem } from "./courseItem";
+import { CourseItem } from "./CourseItem";
 
 
 export const CoursesGrid = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { CourseOptions } from './courseOptions';
+import { CourseOptions } from './CourseOptions';
 import {
   Card,
   CardHeader,
