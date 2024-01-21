@@ -3,8 +3,12 @@ import { BigCalendar } from './big-calendar'
 
 export const DashboardAside = () => {
   return (
-    <aside className='col-span-1 mx-4 flex justify-center'>
+    <aside className='mx-4 flex flex-col items-center '>
         <BigCalendar/>
+        <section className='mt-4'>
+          <h3 className='text-xl font-bold text-left'>Tareas para HOY:</h3>
+          
+        </section>
 
     </aside>
   )
