@@ -57,6 +57,13 @@
       "when": 1705385118908,
       "tag": "0007_condemned_fallen_one",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1705898954624,
+      "tag": "0008_workable_master_chief",
+      "breakpoints": true
     }
   ]
 }

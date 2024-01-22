@@ -13,7 +13,7 @@ export const ToDosLane = ({ title }: Props) => {
       <div className="flex flex-col w-full">
         <div className="flex gap-2 p-2">
           <Checkbox />
-          <span className="text-xs">Leer Pag. 87 libro</span>
+          <span className="text-xs">Leer Pag. 87 libro </span>
         </div>
         <div className="flex gap-2 p-2">
           <Checkbox />

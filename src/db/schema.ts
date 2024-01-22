@@ -24,6 +24,7 @@ export const users = pgTable("user", {
 export const usersRelations = relations(users, ({ many }) => ({
   courses: many(courses),
   assignments: many(assignments),
+  todos: many(todos),
 }));
 
 export const accounts = pgTable(
@@ -112,6 +113,24 @@ export const assignmentsRelations = relations(assignments, ({ one }) => ({
   }),
   user: one(users, {
     fields: [assignments.userId],
+    references: [users.id],
+  }),
+}));
+
+
+export const todos = pgTable("todo", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: text("title").notNull(),
+  isCompleted: boolean("isCompleted").default(false).notNull(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id),
+
+});
+
+export const todosRelations = relations(todos, ({ one }) => ({
+  user: one(users, {
+    fields: [todos.userId],
     references: [users.id],
   }),
 }));
