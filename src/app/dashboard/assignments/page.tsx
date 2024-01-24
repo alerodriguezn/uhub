@@ -1,4 +1,4 @@
-import { getAssignmentsByUser } from "@/app/actions";
+import { getAssignmentsByUser } from "@/actions";
 import { DataTable } from "@/app/dashboard/assignments/ui/DataTable";
 import { redirect } from "next/navigation";
 import { AddAssignmentDialog } from "./ui/AddAssignmentDialog";

@@ -8,8 +8,6 @@ export const CoursesGrid = () => {
       <CourseItem/>
       <CourseItem/>
 
-      
-     
     </div>
   );
 };
