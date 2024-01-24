@@ -15,21 +15,21 @@ export const Sidebar = () => {
       </div>
       <Separator />
       <nav className="w-full mt-8 flex ml-8">
-        <ul className="flex flex-col justify-center gap-6">
-          <li className="flex gap-2">
-            <Link href={"/dashboard/"} className="font-semibold flex items-center gap-2">
+        <ul className="flex flex-col justify-center gap-6 ">
+          <li className="flex gap-2 w-full">
+            <Link href={"/dashboard/"} className="font-semibold flex items-center gap-2 w-full p-2 hover:bg-[#3b82f6] rounded">
               <Home size={18} />
               <span>Inicio</span>
             </Link>
           </li>
-          <li className="flex gap-2">
-            <Link href={"/dashboard/assignments"} className="font-semibold flex items-center gap-2">
+          <li className="flex gap-2 w-full">
+            <Link href={"/dashboard/assignments"} className="font-semibold flex items-center gap-2 w-full p-2 hover:bg-[#3b82f6] rounded">
               <CheckSquare size={18} />
               <span>Asignaciones</span>
             </Link>
           </li>
-          <li className="flex gap-2">
-            <Link href={"/dashboard/courses"} className="font-semibold flex items-center gap-2">
+          <li className="flex gap-2 w-full">
+            <Link href={"/dashboard/courses"} className="font-semibold flex items-center gap-2 w-full p-2 hover:bg-[#3b82f6] rounded">
               <Library />
               <span>Cursos</span>
             </Link>
